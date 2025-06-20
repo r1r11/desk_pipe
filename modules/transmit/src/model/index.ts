@@ -11,6 +11,16 @@ export interface Env {
     DB: D1Database,
 }
 
+
+export interface Note {
+    id: string
+    title: string
+    content: string
+    is_public: boolean
+    created_at: string
+    updated_at: string
+}
+
 export interface User {
     id: string
     email: string

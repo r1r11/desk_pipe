@@ -1,17 +1,34 @@
 import { Hono } from 'hono'
 
-import { DeskPipeContext, UserSession } from '../model'
+import { DeskPipeContext, Note, UserSession } from '../model'
 import { createNote, deleteNote, listPublicNotes, readNote, updateNote } from '../model/db/notes'
 import { getSession } from './middleware/auth';
 
 export const notes = new Hono<DeskPipeContext>();
 
 // Public routes
-notes.get('/api/notes', async (c) => {
-    return c.json(await listPublicNotes(c.env.DB))
+notes.get('', async (c) => {
+    const result = await listPublicNotes(c.env.DB)
+
+    if (result.error) {
+        return c.json({ error: result.error }, 500)
+    }
+
+    if (!result.results || result.results.length === 0) {
+        return c.json({ error: 'No public notes found' }, 404)
+    }
+
+    return c.json(result.results.map(note => ({
+        id: note.id,
+        title: note.title,
+        content: note.content,
+        is_public: note.is_public,
+        created_at: note.created_at,
+        updated_at: note.updated_at
+    })))
 })
 
-notes.get('/api/notes/:id', async (c) => {
+notes.get(':id', async (c) => {
     const id = c.req.param('id');
     const note = await readNote(c.env.DB, id);
 
@@ -22,7 +39,7 @@ notes.get('/api/notes/:id', async (c) => {
 
 
 // Apply auth middleware to *everything* below
-notes.use('/api/notes', async (c, next) => {
+notes.use('', async (c, next) => {
     const session = await getSession(c)
     if (!session) return c.json({ error: 'Unauthorized' }, 401)
     
@@ -31,14 +48,14 @@ notes.use('/api/notes', async (c, next) => {
 })
 
 // Now only authenticated users can reach these:
-notes.post('/api/notes', async (c) => {
+notes.post('', async (c) => {
     const session = c.get('session') as UserSession;
     const body = await c.req.json()
 
     return c.json(await createNote(c.env.DB, body, session.userId))
 })
 
-notes.put('/api/notes/:id', async (c) => {
+notes.put(':id', async (c) => {
     const session = c.get('session') as UserSession;
     const id = c.req.param('id')
     const body = await c.req.json()
@@ -46,7 +63,7 @@ notes.put('/api/notes/:id', async (c) => {
     return c.json(await updateNote(c.env.DB, id, body, session.userId))
 })
 
-notes.delete('/api/notes/:id', async (c) => {
+notes.delete(':id', async (c) => {
     const session = c.get('session') as UserSession;
     const id = c.req.param('id')
 
