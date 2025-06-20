@@ -1,13 +1,25 @@
-import { Hono } from "hono";
 
-const app = new Hono<{ Bindings: CloudflareBindings }>();
+import { DeskPipeContext, Env, User } from './model'
 
-app.get("/message", (c) => {
-  
-  
-// This endpoint returns a simple text response 
-  
-  return c.text("リリーのメッ");
-});
+import { Hono } from 'hono'
 
-export default app;
+import { Auth } from '@auth/core'
+import Google from '@auth/core/providers/google'
+import GitHub from '@auth/core/providers/github'
+
+
+import { notes } from './api/notes';
+import { auth_api } from './api/auth'
+
+
+// The main Hono app
+const app = new Hono<DeskPipeContext>()
+
+
+
+
+app.route('/api/auth',  auth_api);
+app.route('/api/notes', notes);
+
+
+export default app

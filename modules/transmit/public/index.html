@@ -7,13 +7,18 @@
 		<link rel="stylesheet" href="/index.css" />
 	</head>
 	<body>
-		<h1 id="heading"></h1>
+		<h1 id="heading">リリーのメッ</h1>
+		<div id="view">
+			<p>Loading desu... O_O</p>
+		</div>
 		<script>
-			fetch('/message')
-				.then((resp) => resp.text())
-				.then((text) => {
-					const h1 = document.getElementById('heading');
-					h1.textContent = text;
+			fetch('/api/notes')
+				.then((resp) => resp.json())
+				.then((json) => {
+					console.log('Received message:', json);
+					const view = document.getElementById('view');
+					
+					view.textContent = JSON.stringify(json, null, 2).replace(/,/g, ',\n');
 				});
 		</script>
 	</body>

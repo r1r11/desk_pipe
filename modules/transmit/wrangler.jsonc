@@ -7,6 +7,7 @@
 	"name": "transmit",
 	"main": "src/index.ts",
 	"compatibility_date": "2025-06-14",
+	"routes": [ "transmit.rii-init.net/*" ],
 	"assets": {
 		"binding": "ASSETS",
 		"directory": "./public"
@@ -36,12 +37,6 @@
 	 * Note: Use secrets to store sensitive data.
 	 * https://developers.cloudflare.com/workers/configuration/secrets/
 	 */
-
-	/**
-	 * Static Assets
-	 * https://developers.cloudflare.com/workers/static-assets/binding/
-	 */
-	// "assets": { "directory": "./public/", "binding": "ASSETS" },
 
 	/**
 	 * Service Bindings (communicate between multiple Workers)
