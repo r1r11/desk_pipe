@@ -18,8 +18,10 @@
 	"d1_databases": [{
 		"binding": "DB",
 		"database_name": "desk_pipe_d1_db",
-		"database_id": "e9c4a3cd-c609-4009-938b-7b849cc7f9e4"
-	}],
+		"database_id": "e9c4a3cd-c609-4009-938b-7b849cc7f9e4",
+		"migrations_dir": "migrations" 
+	}]
+	
 /**
 	 * Smart Placement
 	 * Docs: https://developers.cloudflare.com/workers/configuration/smart-placement/#smart-placement

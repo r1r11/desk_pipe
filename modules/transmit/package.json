@@ -7,6 +7,7 @@
 	},
 	"dependencies": {
 		"@auth/core": "^0.39.1",
+		"@auth/d1-adapter": "^1.9.1",
 		"hono": "^4.7.11"
 	},
 	"devDependencies": {

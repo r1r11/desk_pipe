@@ -1,11 +1,7 @@
-
-import { DeskPipeContext, Env, User } from './model'
-
 import { Hono } from 'hono'
 
-import { Auth } from '@auth/core'
-import Google from '@auth/core/providers/google'
-import GitHub from '@auth/core/providers/github'
+
+import { DeskPipeContext, Env, User } from './model'
 
 
 import { notes } from './api/notes';
