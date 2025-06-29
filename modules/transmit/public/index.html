@@ -1,25 +1,14 @@
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>リリーのメッ</title>
-		<link rel="stylesheet" href="/index.css" />
-	</head>
-	<body>
-		<h1 id="heading">リリーのメッ</h1>
-		<div id="view">
-			<p>Loading desu... O_O</p>
-		</div>
-		<script>
-			fetch('/api/notes')
-				.then((resp) => resp.json())
-				.then((json) => {
-					console.log('Received message:', json);
-					const view = document.getElementById('view');
-					
-					view.textContent = JSON.stringify(json, null, 2).replace(/,/g, ',\n');
-				});
-		</script>
-	</body>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + React + TS</title>
+    <script type="module" crossorigin src="/assets/index-C2QSNMoe.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-CIOlZkL5.css">
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
 </html>
